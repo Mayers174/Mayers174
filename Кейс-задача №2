@@ -1,0 +1,164 @@
+# 1.	Напишите программу, которая запрашивает у пользователя последовательно день его рождения, месяц и год:
+
+    def request_birthday():
+        # Запрос дня рождения
+        day = input("Введите день вашего рождения: ")
+        # Запрос месяца рождения
+        month = input("Введите месяц вашего рождения: ")
+        # Запрос года рождения
+        year = input("Введите год вашего рождения: ")
+    
+        return day, month, year
+    
+    # Вызов функции и вывод результата
+    
+    day, month, year = request_birthday()
+    print(f"Ваша дата рождения: {day}.{month}.{year}")
+
+# 2. Напишите функцию, которая определяет какому дню недели соответствует эта дата.
+
+    function getDayOfWeek(dateString) {
+        const date = new Date(dateString);
+        const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const dayIndex = date.getDay();
+        
+        return daysOfWeek[dayIndex];
+    }
+
+# 3. Напишите функцию, которая определяет - високосный это был год, или нет.
+
+    function isLeapYear(year) {
+        if (year % 4 === 0) {
+            if (year % 100 === 0) {
+                if (year % 400 === 0) {
+                    return true; // Год делится на 400, это високосный год
+                } else {
+                    return false; // Год делится на 100, но не на 400, это не високосный год
+                }
+            } else {
+                return true; // Год делится на 4, но не на 100, это високосный год
+            }
+        } else {
+            return false; // Год не делится на 4, это не високосный год
+        }
+    }
+
+# 4. Напишите функцию, которая определяет сколько сейчас лет пользователю.
+
+    function calculateAge(birthDateString) {
+        const today = new Date();
+        const birthDate = new Date(birthDateString);
+    
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDifference = today.getMonth() - birthDate.getMonth();
+        const dayDifference = today.getDate() - birthDate.getDate();
+    
+        // Проверка, был ли уже день рождения в этом году
+        if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+            age--;
+        }
+    
+        return age;
+    }
+
+# 5. Реализуйте вывод в консоль даты рождения пользователя в формате дд мм гггг, где цифры прорисованы звёздочками (*), как на электронном табло.
+
+    # Определяем шаблоны для цифр от 0 до 9
+    
+    const digitPatterns = {
+        '0': [
+            " *** ",
+            "*   *",
+            "*   *",
+            "*   *",
+            " *** "
+        ],
+        '1': [
+            "  *  ",
+            " **  ",
+            "  *  ",
+            "  *  ",
+            "***"
+        ],
+        '2': [
+            " *** ",
+            "*   *",
+            "   * ",
+            "  *  ",
+            "*****"
+        ],
+        '3': [
+            " *** ",
+            "    *",
+            " *** ",
+            "    *",
+            " *** "
+        ],
+        '4': [
+            "*   *",
+            "*   *",
+            "****",
+            "    *",
+            "    *"
+        ],
+        '5': [
+            "****",
+            "*    ",
+            "**** ",
+            "    *",
+            "**** "
+        ],
+        '6': [
+            "****",
+            "*    ",
+            "**** ",
+            "*   *",
+            "****"
+        ],
+        '7': [
+            "*****",
+            "    *",
+            "   * ",
+            "  *  ",
+            " *   "
+        ],
+        '8': [
+            "****",
+            "*   *",
+            "****",
+            "*   *",
+            "****"
+        ],
+        '9': [
+            "****",
+            "*   *",
+            "****",
+            "    *",
+            "****"
+        ]
+    };
+    
+    # Функция для преобразования и вывода даты
+    
+    function displayBirthday(birthDateString) {
+        # Парсим дату и форматируем её в виде строки "ДД ММ ГГГГ"
+        const birthDate = new Date(birthDateString);
+        const day = String(birthDate.getDate()).padStart(2, '0');
+        const month = String(birthDate.getMonth() + 1).padStart(2, '0');
+        const year = birthDate.getFullYear();
+    
+        const dateString = `${day} ${month} ${year}`;
+    
+        # Перебираем строки в шаблоне, чтобы создать вывод
+        for (let i = 0; i < 5; i++) {
+            let line = "";
+            for (let char of dateString) {
+                if (char === ' ') {
+                    line += '   '; // Разделитель между датой, месяцем и годом
+                } else {
+                    line += digitPatterns[char][i] + " ";
+                }
+            }
+            console.log(line);
+        }
+    }
